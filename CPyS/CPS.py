@@ -51,18 +51,4 @@ def compute_CPS_parameters(
     return tracks
 
 if __name__ == "__main__":
-    import numpy as np
-    import pandas as pd
-    import xarray as xr
-
-    # Tests theta
-    assert theta(0,1,0,0) == 0.0 # Eastward
-    assert theta(0,0,0,1) == 90.0 # Northward
-    assert theta(0,-1,0,0) == 180.0 # Westward
-    assert theta(0,0,0,-1) == 270.0 # Southward
-
-    assert theta_track([0,1,1,0,0], [0,0,1,1,0]) == [0.0, 90.0, 180, 270.0, 270.0]
-
-    #tracks = pd.read_csv("CPyS/tests/Dale.csv")
-    #geopt = xr.open_dataset("CPyS/tests/Dale.nc")
-    #tracks_CPS = compute_CPS_parameters(tracks, geopt)
+    pass

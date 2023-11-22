@@ -1,3 +1,5 @@
+import scipy.linalg
+
 def theta(x0=120, x1=130, y0=12, y1=10):
     """
     Computes the angular direction between to points.
@@ -14,12 +16,9 @@ def theta(x0=120, x1=130, y0=12, y1=10):
     -------
     th (float): The directional angle between the current and the next point.
     """
-    u = [1, 0]
     v = [x1 - x0, y1 - y0]
-    if np.linalg.norm(v) != 0:
-        cos = (x1 - x0) / (
-                np.linalg.norm(u) * np.linalg.norm(v)
-        )  # Simplification due to u's coordinates
+    if v != [0,0]:
+        cos = (x1 - x0) / ( np.linalg.norm(v) )# Cosinus with eastward vector [1,0]
         if cos == -1:
             th = 180
         else:
