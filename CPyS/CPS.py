@@ -2,6 +2,8 @@ from .theta import theta_multitrack
 from .B import B_vector
 from .VT import VT
 
+import numpy as np
+
 def compute_CPS_parameters(
     tracks, geopt, geopt_name = "snap_zg", plev_name="level",
 ):
@@ -50,5 +52,15 @@ def compute_CPS_parameters(
 
     return tracks
 
+
 if __name__ == "__main__":
-    pass
+    from CPyS import *
+    import numpy as np
+    import pandas as pd
+    import xarray as xr
+
+    # Test theta_multitrack
+    tracks = pd.read_csv("tests/Dale.csv", index_col=False)
+    geopt = xr.open_dataset("tests/Dale.nc")
+
+    df = compute_CPS_parameters(tracks, geopt)

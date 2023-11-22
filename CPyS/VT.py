@@ -1,4 +1,6 @@
-def VT(geopt, name = "snap_zg") : #TODO : Accelerer en vectorisant
+import numpy as np
+
+def VT(geopt, name = "snap_zg"):
     """
     Parameters
     ----------
@@ -10,14 +12,17 @@ def VT(geopt, name = "snap_zg") : #TODO : Accelerer en vectorisant
     -------
     VTL, VTU : The Hart Phase Space parameters for upper and lower thermal wind respectively.
     """
-    from sklearn.linear_model import LinearRegression
+    #from sklearn.linear_model import LinearRegression
+    from scipy.stats import linregress
     Z_max = geopt[name].max(["az", "r"]) # Maximum of Z at each level for each snapshot
     Z_min = geopt[name].min(["az", "r"]) # Minimum of ...
     ΔZ = Z_max - Z_min  # Fonction of snapshot & plev
     ΔZ_bottom = ΔZ.sel(plev=slice(950e2, 600e2)) # Lower troposphere
     ΔZ_top = ΔZ.sel(plev=slice(600e2, 250e2))    # Upper tropo
-    X = np.log(ΔZ_bottom.plev).values.reshape(-1, 1)
-    VTL = [LinearRegression().fit(X, y).coef_[0] if not np.isnan(y).any() else np.nan for y in ΔZ_bottom.values]
-    X = np.log(ΔZ_top.plev).values.reshape(-1, 1)
-    VTU = [LinearRegression().fit(X, y).coef_[0] for y in ΔZ_top.values]
+    X = np.log(ΔZ_bottom.plev).values.reshape(-1, 1).flatten()
+    #VTL = [LinearRegression().fit(X, y).coef_[0] if not np.isnan(y).any() else np.nan for y in ΔZ_bottom.values]
+    VTL = [linregress(X, y).slope if not np.isnan(y).any() else np.nan for y in ΔZ_bottom.values]
+    X = np.log(ΔZ_top.plev).values.reshape(-1, 1).flatten()
+    #VTU = [LinearRegression().fit(X, y).coef_[0] for y in ΔZ_top.values]
+    VTU = [linregress(X, y).slope for y in ΔZ_top.values]
     return VTL, VTU

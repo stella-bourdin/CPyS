@@ -1,4 +1,4 @@
-import scipy.linalg
+import numpy as np
 
 def theta(x0=120, x1=130, y0=12, y1=10):
     """

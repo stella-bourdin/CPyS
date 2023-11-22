@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+
 def right_left(field, th):
     """
     Separate geopotential field into left and right of the th line.
