@@ -1,1 +1,1 @@
-# CPyS: A python package from compute the Hart Cyclone Phase Space parameters
+# CPyS: A python package to compute the Hart Cyclone Phase Space parameters
