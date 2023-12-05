@@ -14,18 +14,18 @@ def theta(x0=120, x1=130, y0=12, y1=10):
 
     Returns
     -------
-    th (float): The directional angle between the current and the next point.
+    th (float): The directional angle between the current and the next point, in degrees.
     """
-    v = [x1 - x0, y1 - y0]
-    if v != [0,0]:
+    v = [x1 - x0, y1 - y0] # Vector corresponding to the track movement
+    if v != [0,0]: # If not stagnating
         cos = (x1 - x0) / ( np.linalg.norm(v) )# Cosinus with eastward vector [1,0]
         if cos == -1:
             th = 180
         else:
             th = np.sign(y1 - y0) * np.arccos(cos) * 180 / np.pi
-    else:
+    else: # If stagnating: Set to NaN
         th = np.nan
-    if th < 0: th += 360;
+    if th < 0: th += 360; # Make all angles between 0 and 360
     return th
 
 
