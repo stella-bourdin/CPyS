@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 def right_left(field, th):
     """
     Separate geopotential field into left and right of the th line.
@@ -39,12 +40,12 @@ def right_left_vector(z, th):
     """
 
     A = pd.DataFrame([list(z.az.values)] * len(z.snapshot))  # matrix of az x snapshot
-    mask = np.array((A.lt(th, 0) & A.ge(th - 180, 0)) | A.ge(th + 180, 0))  # Mask in 2D (az, snapshot)
+    mask = np.array(
+        (A.lt(th, 0) & A.ge(th - 180, 0)) | A.ge(th + 180, 0)
+    )  # Mask in 2D (az, snapshot)
     mask = np.array([mask] * len(z.r))  # Mask in 3D (r, az, snapshot)
     mask = np.swapaxes(mask, 0, 1)  # Mask in 3D (az, r, snapshot)
-    R, L = z.where(mask), z.where(
-        ~mask
-    )
+    R, L = z.where(mask), z.where(~mask)
     return R, L
 
 
@@ -65,7 +66,7 @@ def area_weights(field):
     return w
 
 
-def B(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):
+def B(th, geopt, SH=False, names=["snap_z900", "snap_z600"]): # TODO: Useless?
     """
     Computes the B parameter for a point, with the corresponding snapshot of geopt at 600hPa and 900hPa
 
@@ -95,10 +96,13 @@ def B(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):
         h = -1
     else:
         h = 1
-    return h * (
+    return (
+        h
+        * (
             ΔZ_R.weighted(area_weights(ΔZ_R)).mean(["r", "az"])
             - ΔZ_L.weighted(area_weights(ΔZ_L)).mean(["r", "az"])
-    ).values
+        ).values
+    )
 
 
 def B_vector(th_vec, z900, z600, lat):

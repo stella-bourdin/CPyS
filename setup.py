@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="CPyS",
-    version="0.0.1",
+    version="0.0.2",
     author="Stella Bourdin",
     author_email="stella.bourdin@lsce.ipsl.fr",
     description="A python package from compute the Hart Cyclone Phase Space parameters",
