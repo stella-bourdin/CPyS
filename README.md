@@ -164,7 +164,7 @@ Dimensions without coordinates: snapshot</pre><div class='xr-wrap' style='displa
              25000,  30000,  35000,  40000,  45000,  50000,  55000,  60000,
              65000,  70000,  75000,  77500,  80000,  82500,  85000,  87500,
              90000,  92500,  95000,  97500, 100000],
-           dtype=&#x27;int64&#x27;, name=&#x27;level&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-330a79af-3ace-49e1-b2c3-8e278d6cf6ed' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-330a79af-3ace-49e1-b2c3-8e278d6cf6ed' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div>
+           dtype=&#x27;int64&#x27;, name=&#x27;level&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-330a79af-3ace-49e1-b2c3-8e278d6cf6ed' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-330a79af-3ace-49e1-b2c3-8e278d6cf6ed' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div>
 
 
 
