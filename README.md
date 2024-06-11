@@ -126,48 +126,6 @@ snaps = xr.open_dataset("Dale.nc")
 snaps.snap_zg # Content of snap_zg
 ```
 
-<pre class='xr-text-repr-fallback'>&lt;xarray.DataArray &#x27;snap_zg&#x27; (snapshot: 35, level: 37, r: 50, az: 16)&gt;
-[1036000 values with dtype=float32]
-Coordinates:
-  * az       (az) float64 0.0 22.5 45.0 67.5 90.0 ... 270.0 292.5 315.0 337.5
-  * r        (r) float64 0.1 0.3 0.5 0.7 0.9 1.1 1.3 ... 8.9 9.1 9.3 9.5 9.7 9.9
-  * level    (level) int32 100 200 300 500 700 ... 92500 95000 97500 100000
-Dimensions without coordinates: snapshot</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'snap_zg'</div><ul class='xr-dim-list'><li><span>snapshot</span>: 35</li><li><span class='xr-has-index'>level</span>: 37</li><li><span class='xr-has-index'>r</span>: 50</li><li><span class='xr-has-index'>az</span>: 16</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-0c803f81-1c57-4ad7-b712-72b289adf433' class='xr-array-in' type='checkbox' checked><label for='section-0c803f81-1c57-4ad7-b712-72b289adf433' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>...</span></div><div class='xr-array-data'><pre>[1036000 values with dtype=float32]</pre></div></div></li><li class='xr-section-item'><input id='section-8060792d-1e9b-4508-aa2d-8247fd25fa53' class='xr-section-summary-in' type='checkbox'  checked><label for='section-8060792d-1e9b-4508-aa2d-8247fd25fa53' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>az</span></div><div class='xr-var-dims'>(az)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 22.5 45.0 ... 292.5 315.0 337.5</div><input id='attrs-d7c84815-6a28-453a-8c98-ef0da5db1e0f' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d7c84815-6a28-453a-8c98-ef0da5db1e0f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-ca805b77-9d1b-4ed7-abd4-64d893bc122b' class='xr-var-data-in' type='checkbox'><label for='data-ca805b77-9d1b-4ed7-abd4-64d893bc122b' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>name :</span></dt><dd>stereographic azimuth angle</dd><dt><span>units :</span></dt><dd>degrees</dd></dl></div><div class='xr-var-data'><pre>array([  0. ,  22.5,  45. ,  67.5,  90. , 112.5, 135. , 157.5, 180. , 202.5,
-       225. , 247.5, 270. , 292.5, 315. , 337.5])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>r</span></div><div class='xr-var-dims'>(r)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.1 0.3 0.5 0.7 ... 9.3 9.5 9.7 9.9</div><input id='attrs-9684fce0-bd91-4f4f-a30d-02a18b6d8701' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-9684fce0-bd91-4f4f-a30d-02a18b6d8701' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e0003eb6-3163-4f88-992f-bb87823a49a3' class='xr-var-data-in' type='checkbox'><label for='data-e0003eb6-3163-4f88-992f-bb87823a49a3' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>name :</span></dt><dd>stereographic great circle distance</dd><dt><span>units :</span></dt><dd>degrees</dd></dl></div><div class='xr-var-data'><pre>array([0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1, 2.3, 2.5, 2.7,
-       2.9, 3.1, 3.3, 3.5, 3.7, 3.9, 4.1, 4.3, 4.5, 4.7, 4.9, 5.1, 5.3, 5.5,
-       5.7, 5.9, 6.1, 6.3, 6.5, 6.7, 6.9, 7.1, 7.3, 7.5, 7.7, 7.9, 8.1, 8.3,
-       8.5, 8.7, 8.9, 9.1, 9.3, 9.5, 9.7, 9.9])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>level</span></div><div class='xr-var-dims'>(level)</div><div class='xr-var-dtype'>int32</div><div class='xr-var-preview xr-preview'>100 200 300 ... 95000 97500 100000</div><input id='attrs-4ef50e5b-114c-4708-a5f4-caddbd1220dd' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-4ef50e5b-114c-4708-a5f4-caddbd1220dd' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-936eea9f-1839-4740-bf19-1a5dfc5f8383' class='xr-var-data-in' type='checkbox'><label for='data-936eea9f-1839-4740-bf19-1a5dfc5f8383' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([   100,    200,    300,    500,    700,   1000,   2000,   3000,   5000,
-         7000,  10000,  12500,  15000,  17500,  20000,  22500,  25000,  30000,
-        35000,  40000,  45000,  50000,  55000,  60000,  65000,  70000,  75000,
-        77500,  80000,  82500,  85000,  87500,  90000,  92500,  95000,  97500,
-       100000], dtype=int32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-ea0ce0e2-e584-4f2b-91b1-4b9417deb4f8' class='xr-section-summary-in' type='checkbox'  ><label for='section-ea0ce0e2-e584-4f2b-91b1-4b9417deb4f8' class='xr-section-summary' >Indexes: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>az</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-ba1a294c-70d8-4220-8547-606eb18e8912' class='xr-index-data-in' type='checkbox'/><label for='index-ba1a294c-70d8-4220-8547-606eb18e8912' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Float64Index([  0.0,  22.5,  45.0,  67.5,  90.0, 112.5, 135.0, 157.5, 180.0,
-              202.5, 225.0, 247.5, 270.0, 292.5, 315.0, 337.5],
-             dtype=&#x27;float64&#x27;, name=&#x27;az&#x27;))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>r</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-602ed039-010a-452f-8f08-13fe69262476' class='xr-index-data-in' type='checkbox'/><label for='index-602ed039-010a-452f-8f08-13fe69262476' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Float64Index([                0.1, 0.30000000000000004,                 0.5,
-               0.7000000000000001,                 0.9,                 1.1,
-                              1.3,                 1.5,  1.7000000000000002,
-               1.9000000000000001,                 2.1,  2.3000000000000003,
-                              2.5,                 2.7,  2.9000000000000004,
-                              3.1,  3.3000000000000003,                 3.5,
-                              3.7,  3.9000000000000004,  4.1000000000000005,
-                              4.3,                 4.5,                 4.7,
-                              4.9,  5.1000000000000005,   5.300000000000001,
-                              5.5,                 5.7,                 5.9,
-               6.1000000000000005,   6.300000000000001,                 6.5,
-                              6.7,                 6.9,  7.1000000000000005,
-                7.300000000000001,                 7.5,                 7.7,
-                              7.9,                 8.1,                 8.3,
-                              8.5,   8.700000000000001,                 8.9,
-                              9.1,                 9.3,                 9.5,
-                9.700000000000001,                 9.9],
-             dtype=&#x27;float64&#x27;, name=&#x27;r&#x27;))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>level</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-acbe0d5e-fc74-407d-8218-03a3428e7d6e' class='xr-index-data-in' type='checkbox'/><label for='index-acbe0d5e-fc74-407d-8218-03a3428e7d6e' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Int64Index([   100,    200,    300,    500,    700,   1000,   2000,   3000,
-              5000,   7000,  10000,  12500,  15000,  17500,  20000,  22500,
-             25000,  30000,  35000,  40000,  45000,  50000,  55000,  60000,
-             65000,  70000,  75000,  77500,  80000,  82500,  85000,  87500,
-             90000,  92500,  95000,  97500, 100000],
-           dtype=&#x27;int64&#x27;, name=&#x27;level&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-330a79af-3ace-49e1-b2c3-8e278d6cf6ed' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-330a79af-3ace-49e1-b2c3-8e278d6cf6ed' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div>
-
-
-
 ## Computation of the CPS parameters
 
 
