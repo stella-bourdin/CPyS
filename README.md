@@ -818,10 +818,5 @@ plot_CPS(track_w_CPS_params, title = "Dale")
 
 
     
-![png](output_14_0.png)
+![png](demo/output_10_0.png)
     
-
-
-```python
-
-```
