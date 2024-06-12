@@ -1,7 +1,8 @@
 from .theta import theta_multitrack
 from .B import B_vector
 from .VT import VT
-
+import pandas as pd
+import numpy as np
 
 def compute_CPS_parameters(
     tracks,
@@ -25,8 +26,15 @@ def compute_CPS_parameters(
     tracks (pd.DataFrame): The set of TC points with four new columns corresponding to the parameters
     """
 
+    # Curate input
+    ## Snapshots
     geopt = geopt.rename({plev_name: "plev"}) # Change vertical coordinate name
-
+    geopt = geopt.where(np.abs(geopt.snap_zg) < 1e10)
+	
+    # tracks
+    if "time" not in tracks.columns :
+        tracks["time"] = pd.to_datetime(tracks.year.astype(str) + '-' + tracks.month.astype(str) + '-' + tracks.day.astype(str) + ' ' + tracks.hour.astype(str) + ':00:00')
+    
     # 1/ B computation
     print("Computing B...")
     ## Select 900 & 600 hPa levels
