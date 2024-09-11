@@ -9,6 +9,7 @@ def compute_CPS_parameters(
     geopt,
     geopt_name="snap_zg",
     plev_name="level",
+    verbose = True,
 ):
     """
     Computes the three (+ theta) Hart parameters for all the points in tracks.
@@ -36,13 +37,13 @@ def compute_CPS_parameters(
         tracks["time"] = pd.to_datetime(tracks.year.astype(str) + '-' + tracks.month.astype(str) + '-' + tracks.day.astype(str) + ' ' + tracks.hour.astype(str) + ':00:00')
     
     # 1/ B computation
-    print("Computing B...")
+    if verbose: print("Computing B...")
     ## Select 900 & 600 hPa levels
     z900, z600 = (
         geopt[geopt_name].sel(plev=900e2, method="nearest"),
         geopt[geopt_name].sel(plev=600e2, method="nearest"),
     )
-    print(
+    if verbose: print(
         "Level "
         + str(z900.plev.values)
         + " is taken for 900hPa"
@@ -63,7 +64,7 @@ def compute_CPS_parameters(
     )
 
     # 2/ VTL & VTU computation
-    print("Computing VTL & VTU...")
+    if verbose: print("Computing VTL & VTU...")
     geopt = geopt.sortby("plev", ascending=False)
     VTL, VTU = VT(geopt, name=geopt_name)
 
