@@ -16,7 +16,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
-    install_requires=["numpy", "pandas"],
+    install_requires=["numpy", "pandas", "xarray","pyproj","matplotlib"],
     #include_package_data=True,
     #package_data={"":['_data/*.csv', "_data/iho.*"]}
 )

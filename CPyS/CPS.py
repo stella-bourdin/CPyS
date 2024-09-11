@@ -75,9 +75,6 @@ def compute_CPS_parameters(
 
 
 if __name__ == "__main__":
-    from CPyS import *
-    import numpy as np
-    import pandas as pd
     import xarray as xr
 
     # Test theta_multitrack
