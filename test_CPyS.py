@@ -1,10 +1,6 @@
 import pytest
 
 from CPyS.theta import theta, theta_track
-from CPyS.B import B, B_vector
-
-import pandas as pd
-import xarray as xr
 
 def test_theta():
     x0, x1, y0, y1 = 0, 1, 0, 0 # Eastward
@@ -22,3 +18,4 @@ def test_theta_track():
     t = theta_track(lon, lat)
     assert len(t) == len(lon)
     assert t == pytest.approx([0, 90, 180, 270, 270], 0.01)
+    
