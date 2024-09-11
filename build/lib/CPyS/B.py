@@ -66,7 +66,7 @@ def area_weights(field):
     return w
 
 
-def B(th, geopt, SH=False, names=["snap_z900", "snap_z600"]): # TODO: Useless?
+def B(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):  # TODO: Useless?
     """
     Computes the B parameter for a point, with the corresponding snapshot of geopt at 600hPa and 900hPa
 

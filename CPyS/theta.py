@@ -1,6 +1,7 @@
 import numpy as np
 import pyproj
 
+
 def theta(x0=120, x1=130, y0=12, y1=10):
     """
     Computes the angular direction between to points.
@@ -18,8 +19,8 @@ def theta(x0=120, x1=130, y0=12, y1=10):
     th (float): The directional angle between the current and the next point, in degrees.
         0 for eastward, 90 for northward.
     """
-    geodesic = pyproj.Geod(ellps='WGS84')
-    fwd_azimuth,back_azimuth,distance = geodesic.inv(x0, y0, x1, y1)
+    geodesic = pyproj.Geod(ellps="WGS84")
+    fwd_azimuth, back_azimuth, distance = geodesic.inv(x0, y0, x1, y1)
     return -1 * (fwd_azimuth - 90) % 360
 
 

@@ -1,6 +1,8 @@
 from .theta import theta_multitrack
 from .B import B_vector
 from .VT import VT
+import pandas as pd
+import numpy as np
 
 
 def compute_CPS_parameters(
@@ -8,6 +10,7 @@ def compute_CPS_parameters(
     geopt,
     geopt_name="snap_zg",
     plev_name="level",
+    verbose=True,
 ):
     """
     Computes the three (+ theta) Hart parameters for all the points in tracks.
@@ -25,25 +28,43 @@ def compute_CPS_parameters(
     tracks (pd.DataFrame): The set of TC points with four new columns corresponding to the parameters
     """
 
-    geopt = geopt.rename({plev_name: "plev"}) # Change vertical coordinate name
+    # Curate input
+    ## Snapshots
+    geopt = geopt.rename({plev_name: "plev"})  # Change vertical coordinate name
+    geopt = geopt.where(np.abs(geopt.snap_zg) < 1e10)
+
+    # tracks
+    if "time" not in tracks.columns:
+        tracks["time"] = pd.to_datetime(
+            tracks.year.astype(str)
+            + "-"
+            + tracks.month.astype(str)
+            + "-"
+            + tracks.day.astype(str)
+            + " "
+            + tracks.hour.astype(str)
+            + ":00:00"
+        )
 
     # 1/ B computation
-    print("Computing B...")
+    if verbose:
+        print("Computing B...")
     ## Select 900 & 600 hPa levels
     z900, z600 = (
         geopt[geopt_name].sel(plev=900e2, method="nearest"),
         geopt[geopt_name].sel(plev=600e2, method="nearest"),
     )
-    print(
-        "Level "
-        + str(z900.plev.values)
-        + " is taken for 900hPa"
-        + "\n"
-        + "Level "
-        + str(z600.plev.values)
-        + " is taken for 600hPa"
-        + "\n"
-    )
+    if verbose:
+        print(
+            "Level "
+            + str(z900.plev.values)
+            + " is taken for 900hPa"
+            + "\n"
+            + "Level "
+            + str(z600.plev.values)
+            + " is taken for 600hPa"
+            + "\n"
+        )
 
     ## theta computation
     if "theta" not in tracks.columns:
@@ -55,7 +76,8 @@ def compute_CPS_parameters(
     )
 
     # 2/ VTL & VTU computation
-    print("Computing VTL & VTU...")
+    if verbose:
+        print("Computing VTL & VTU...")
     geopt = geopt.sortby("plev", ascending=False)
     VTL, VTU = VT(geopt, name=geopt_name)
 

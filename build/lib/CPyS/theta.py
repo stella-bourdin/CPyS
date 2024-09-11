@@ -1,4 +1,5 @@
 import numpy as np
+import pyproj
 
 
 def theta(x0=120, x1=130, y0=12, y1=10):
@@ -16,20 +17,11 @@ def theta(x0=120, x1=130, y0=12, y1=10):
     Returns
     -------
     th (float): The directional angle between the current and the next point, in degrees.
+        0 for eastward, 90 for northward.
     """
-    v = [x1 - x0, y1 - y0]  # Vector corresponding to the track movement
-    if v != [0, 0]:  # If not stagnating
-        cos = (x1 - x0) / (np.linalg.norm(v))  # Cosinus with eastward vector [1,0]
-        if cos == -1:
-            th = 180
-        else:
-            th = np.sign(y1 - y0) * np.arccos(cos) * 180 / np.pi
-    else:  # If stagnating: Set to NaN
-        th = np.nan
-    if th < 0:
-        th += 360
-        # Make all angles between 0 and 360
-    return th
+    geodesic = pyproj.Geod(ellps="WGS84")
+    fwd_azimuth, back_azimuth, distance = geodesic.inv(x0, y0, x1, y1)
+    return -1 * (fwd_azimuth - 90) % 360
 
 
 def theta_track(lon, lat):

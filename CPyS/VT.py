@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def VT(geopt, name="snap_zg"):
     """
     Parameters
