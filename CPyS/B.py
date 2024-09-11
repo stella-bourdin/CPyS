@@ -15,6 +15,7 @@ def right_left(field, th):
     -------
     left, right (2 xr.DataArray): The left and right side of the geopt. field.
     """
+    th = field.sel(az = 157.44, method = "nearest").az.values # Select nearest available az to theta
     if th <= 180:
         return field.where((field.az <= th) | (field.az > 180 + th)), field.where(
             (field.az > th) & (field.az <= 180 + th)
@@ -39,6 +40,7 @@ def right_left_vector(z, th):
     left, right (2 xr.DataArray): The left and right side of the z. field.
     """
 
+    th = z.az.sel(az = th.values, method = "nearest").az.values # Select nearest available az to theta
     A = pd.DataFrame([list(z.az.values)] * len(z.snapshot))  # matrix of az x snapshot
     mask = np.array(
         (A.lt(th, 0) & A.ge(th - 180, 0)) | A.ge(th + 180, 0)
