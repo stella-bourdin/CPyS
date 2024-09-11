@@ -42,12 +42,13 @@ def right_left_vector(z, th):
 
     th = z.az.sel(az = th.values, method = "nearest").az.values # Select nearest available az to theta
     A = pd.DataFrame([list(z.az.values)] * len(z.snapshot))  # matrix of az x snapshot
-    mask = np.array(
-        (A.lt(th, 0) & A.ge(th - 180, 0)) | A.ge(th + 180, 0)
-    )  # Mask in 2D (az, snapshot)
-    mask = np.array([mask] * len(z.r))  # Mask in 3D (r, az, snapshot)
-    mask = np.swapaxes(mask, 0, 1)  # Mask in 3D (az, r, snapshot)
-    R, L = z.where(mask), z.where(~mask)
+    A_shift = A.sub(th, axis = 0) % 360
+    mask_right = A_shift > 180 # Mask in 2D (az, snapshot)
+    mask_left = (A_shift > 0) & (A_shift < 180)
+    mask_right, mask_left = np.array([mask_right] * len(z.r)), \
+                            np.array([mask_left] * len(z.r)) # Mask in 3D (r, az, snapshot)
+    mask_right, mask_left = np.swapaxes(mask_right, 0, 1), np.swapaxes(mask_left, 0, 1)  # Mask in 3D (az, r, snapshot)
+    R, L = z.where(mask_right), z.where(mask_left)
     return R, L
 
 
