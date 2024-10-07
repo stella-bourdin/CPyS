@@ -29,21 +29,27 @@ def compute_CPS_parameters(
     """
 
     # Curate input
-    ## Snapshots
+    ## geopt snapshots
     geopt = geopt.rename({plev_name: "plev"})  # Change vertical coordinate name
-    geopt = geopt.where(np.abs(geopt.snap_zg) < 1e10)
+    geopt = geopt.where(np.abs(geopt[geopt_name]) < 1e10)
 
-    # tracks
-    if "time" not in tracks.columns:
+    ## tracks
+    ### Test type
+    if type(tracks) == xr.Dataset:
+        tracks = tracks.to_dataframe()
+    elif type(tracks) == pd.DataFrame:
+        pass
+    else: 
+        print("Type of tracks not recognized. Please provide a pandas dataframe or an xarray dataset.\nNote: If you are using huracanpy to load the tracks, the object is an xarray Dataset.")
+        return None
+              
+    ### Time
+    if "time" not in tracks.columns: ## Todo: Replace with huracanpy's get time?
         tracks["time"] = pd.to_datetime(
-            tracks.year.astype(str)
-            + "-"
-            + tracks.month.astype(str)
-            + "-"
-            + tracks.day.astype(str)
-            + " "
-            + tracks.hour.astype(str)
-            + ":00:00"
+            tracks.year.astype(str) + '-' +
+            tracks.month.astype(str) + '-' +
+            tracks.day.astype(str) + '-' +
+            tracks.hour.astype(str) + ":00:00"
         )
 
     # 1/ B computation

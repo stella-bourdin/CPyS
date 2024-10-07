@@ -39,8 +39,11 @@ def right_left_vector(z, th):
     -------
     left, right (2 xr.DataArray): The left and right side of the z. field.
     """
-
-    th = z.az.sel(az = th.values, method = "nearest").az.values # Select nearest available az to theta
+    # Curate input 
+    if type(th) != np.ndarray:
+        th = th.values
+        
+    th = z.az.sel(az = th, method = "nearest").az.values # Select nearest available az to theta
     A = pd.DataFrame([list(z.az.values)] * len(z.snapshot))  # matrix of az x snapshot
     A_shift = A.sub(th, axis = 0) % 360
     mask_right = A_shift > 180 # Mask in 2D (az, snapshot)
@@ -123,6 +126,10 @@ def B_vector(th_vec, z900, z600, lat):
     -------
     B, the Hart phase space parameter for symetry.
     """
+    # Curate input 
+    if type(th_vec) != np.ndarray:
+        th_vec = th_vec.values
+    
     ΔZ = z600 - z900
     ΔZ_R, ΔZ_L = right_left_vector(ΔZ, th_vec)
     h = np.where(lat < 0, -1, 1)
