@@ -3,6 +3,7 @@ from .B import B_vector
 from .VT import VT
 import pandas as pd
 import numpy as np
+import xarray as xr
 
 
 def compute_CPS_parameters(
