@@ -100,30 +100,3 @@ def theta_multitrack(tracks):
     th[list((tracks.tpos == 0).values)] = th[list((tracks.tpos == 1).values)]
 
     return th
-
-
-if __name__ == "__main__":
-    import numpy as np
-    import pandas as pd
-
-    # Test theta
-    assert theta(0, 1, 0, 0) == 0.0  # Eastward
-    assert theta(0, 0, 0, 1) == 90.0  # Northward
-    assert theta(0, -1, 0, 0) == 180.0  # Westward
-    assert theta(0, 0, 0, -1) == 270.0  # Southward
-
-    # Test theta_track
-    assert theta_track([0, 1, 1, 0, 0], [0, 0, 1, 1, 0]) == [
-        0.0,
-        90.0,
-        180,
-        270.0,
-        270.0,
-    ]
-
-    # Test theta_multitrack
-    tracks = pd.read_csv("tests/1996.csv", index_col=False)
-    assert type(theta_multitrack(tracks)) == np.ndarray
-    assert theta_multitrack(tracks)[1] == 90.0
-
-    print("All good")

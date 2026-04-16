@@ -92,13 +92,3 @@ def compute_CPS_parameters(
     tracks = tracks.assign(VTL=VTL, VTU=VTU)
 
     return tracks
-
-
-if __name__ == "__main__":
-    import xarray as xr
-
-    # Test theta_multitrack
-    tracks = pd.read_csv("tests/Dale.csv", index_col=False)
-    geopt = xr.open_dataset("tests/Dale.nc")
-
-    df = compute_CPS_parameters(tracks, geopt)
