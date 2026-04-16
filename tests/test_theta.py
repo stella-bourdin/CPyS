@@ -30,5 +30,3 @@ def test_theta_multitrack():
     assert theta.theta_multitrack(tracks)[1] == 90.0
 
     print("All good")
-
-

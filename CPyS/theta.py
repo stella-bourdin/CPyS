@@ -20,7 +20,7 @@ def theta(x0=120, x1=130, y0=12, y1=10):
         0 for eastward, 90 for northward.
     """
     geodesic = pyproj.Geod(ellps="WGS84")
-    if (x1-x0, y1-y0) != (0,0):
+    if (x1 - x0, y1 - y0) != (0, 0):
         fwd_azimuth, back_azimuth, distance = geodesic.inv(x0, y0, x1, y1)
         return -1 * (fwd_azimuth - 90) % 360
     else:
@@ -80,9 +80,9 @@ def theta_multitrack(tracks):
     thetas (list): The list of angle for each point in the dataset
     """
 
-    assert (
-        tracks.groupby("track_id").time.count().min() > 1
-    ), "The dataset contains tracks with only one point."
+    assert tracks.groupby("track_id").time.count().min() > 1, (
+        "The dataset contains tracks with only one point."
+    )
 
     # Identify position of track point from the end of the track (tpos=0 for the last point)
     tracks["tpos"] = (

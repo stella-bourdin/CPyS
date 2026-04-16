@@ -40,17 +40,23 @@ def compute_CPS_parameters(
         tracks = tracks.to_dataframe()
     elif type(tracks) == pd.DataFrame:
         pass
-    else: 
-        print("Type of tracks not recognized. Please provide a pandas dataframe or an xarray dataset.\nNote: If you are using huracanpy to load the tracks, the object is an xarray Dataset.")
+    else:
+        print(
+            "Type of tracks not recognized. Please provide a pandas dataframe or an xarray dataset.\nNote: If you are using huracanpy to load the tracks, the object is an xarray Dataset."
+        )
         return None
-              
+
     ### Time
-    if "time" not in tracks.columns: ## Todo: Replace with huracanpy's get time?
+    if "time" not in tracks.columns:  ## Todo: Replace with huracanpy's get time?
         tracks["time"] = pd.to_datetime(
-            tracks.year.astype(str) + '-' +
-            tracks.month.astype(str) + '-' +
-            tracks.day.astype(str) + '-' +
-            tracks.hour.astype(str) + ":00:00"
+            tracks.year.astype(str)
+            + "-"
+            + tracks.month.astype(str)
+            + "-"
+            + tracks.day.astype(str)
+            + "-"
+            + tracks.hour.astype(str)
+            + ":00:00"
         )
 
     # 1/ B computation

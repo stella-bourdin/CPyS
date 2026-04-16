@@ -15,7 +15,9 @@ def right_left(field, th):
     -------
     left, right (2 xr.DataArray): The left and right side of the geopt. field.
     """
-    th = field.sel(az = 157.44, method = "nearest").az.values # Select nearest available az to theta
+    th = field.sel(
+        az=157.44, method="nearest"
+    ).az.values  # Select nearest available az to theta
     if th <= 180:
         return field.where((field.az <= th) | (field.az > 180 + th)), field.where(
             (field.az > th) & (field.az <= 180 + th)
@@ -39,18 +41,25 @@ def right_left_vector(z, th):
     -------
     left, right (2 xr.DataArray): The left and right side of the z. field.
     """
-    # Curate input 
+    # Curate input
     if type(th) != np.ndarray:
         th = th.values
-        
-    th = z.az.sel(az = th, method = "nearest").az.values # Select nearest available az to theta
+
+    th = z.az.sel(
+        az=th, method="nearest"
+    ).az.values  # Select nearest available az to theta
     A = pd.DataFrame([list(z.az.values)] * len(z.snapshot))  # matrix of az x snapshot
-    A_shift = A.sub(th, axis = 0) % 360
-    mask_right = A_shift > 180 # Mask in 2D (az, snapshot)
+    A_shift = A.sub(th, axis=0) % 360
+    mask_right = A_shift > 180  # Mask in 2D (az, snapshot)
     mask_left = (A_shift > 0) & (A_shift < 180)
-    mask_right, mask_left = np.array([mask_right] * len(z.r)), \
-                            np.array([mask_left] * len(z.r)) # Mask in 3D (r, az, snapshot)
-    mask_right, mask_left = np.swapaxes(mask_right, 0, 1), np.swapaxes(mask_left, 0, 1)  # Mask in 3D (az, r, snapshot)
+    mask_right, mask_left = (
+        np.array([mask_right] * len(z.r)),
+        np.array([mask_left] * len(z.r)),
+    )  # Mask in 3D (r, az, snapshot)
+    mask_right, mask_left = (
+        np.swapaxes(mask_right, 0, 1),
+        np.swapaxes(mask_left, 0, 1),
+    )  # Mask in 3D (az, r, snapshot)
     R, L = z.where(mask_right), z.where(mask_left)
     return R, L
 
@@ -126,10 +135,10 @@ def B_vector(th_vec, z900, z600, lat):
     -------
     B, the Hart phase space parameter for symetry.
     """
-    # Curate input 
+    # Curate input
     if type(th_vec) != np.ndarray:
         th_vec = th_vec.values
-    
+
     ΔZ = z600 - z900
     ΔZ_R, ΔZ_L = right_left_vector(ΔZ, th_vec)
     h = np.where(lat < 0, -1, 1)
