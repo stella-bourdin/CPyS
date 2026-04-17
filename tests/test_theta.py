@@ -24,10 +24,7 @@ def test_theta_track():
     assert t == pytest.approx([0, 90, 180, 270, 270], 0.01)
 
 
-def test_theta_multitrack():
-    tracks = pd.read_csv("tests/1996.csv", index_col=False)
+def test_theta_multitrack(tracks, results):
     result = theta.theta_multitrack(tracks)
     assert type(result) is np.ndarray
-    assert result[1] == 90.0
-
-    print("All good")
+    np.testing.assert_allclose(result, results.theta)

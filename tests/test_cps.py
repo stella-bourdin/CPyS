@@ -1,11 +1,10 @@
-import pandas as pd
-import xarray as xr
+import numpy as np
 
 from CPyS.CPS import compute_CPS_parameters
 
 
-def test_cps_parameters():
-    tracks = pd.read_csv("tests/Dale.csv", index_col=False)
-    geopt = xr.open_dataset("tests/Dale.nc")
-
+def test_cps_parameters(tracks, geopt, results):
     df = compute_CPS_parameters(tracks, geopt)
+
+    for var in ["B", "VTL", "VTU"]:
+        np.testing.assert_allclose(df[var], results[var])
