@@ -1,7 +1,9 @@
-import numpy as np
-import pandas as pd
-import xarray as xr
+__all__ = [
+    "compute_CPS_parameters",
+    "theta_multitrack",
+    "plot_CPS",
+]
 
 from .CPS import compute_CPS_parameters
 from .theta import theta_multitrack
-from .plot import *
+from .plot import plot_CPS

@@ -83,7 +83,8 @@ def area_weights(field):
 
 def B(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):  # TODO: Useless?
     """
-    Computes the B parameter for a point, with the corresponding snapshot of geopt at 600hPa and 900hPa
+    Computes the B parameter for a point, with the corresponding snapshot of geopt at
+    600hPa and 900hPa
 
     Parameters
     ----------
@@ -96,7 +97,7 @@ def B(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):  # TODO: Useless?
     -------
     B, the Hart phase space parameter for symetry.
     """
-    if type(names) == str:
+    if isinstance(names, str):
         z900 = geopt[names].sel(plev=900e2, method="nearest")
         print("Level " + str(z900.plev.values) + " is taken for 900hPa")
         z600 = geopt[names].sel(plev=600e2, method="nearest")
@@ -122,7 +123,8 @@ def B(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):  # TODO: Useless?
 
 def B_vector(th_vec, z900, z600, lat):
     """
-    Computes the B parameter for a vector of points, with the corresponding snapshot of geopt at 600hPa and 900hPa
+    Computes the B parameter for a vector of points, with the corresponding snapshot of
+    geopt at 600hPa and 900hPa
 
     Parameters
     ----------

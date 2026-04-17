@@ -26,7 +26,8 @@ def test_theta_track():
 
 def test_theta_multitrack():
     tracks = pd.read_csv("tests/1996.csv", index_col=False)
-    assert type(theta.theta_multitrack(tracks)) == np.ndarray
-    assert theta.theta_multitrack(tracks)[1] == 90.0
+    result = theta.theta_multitrack(tracks)
+    assert type(result) is np.ndarray
+    assert result[1] == 90.0
 
     print("All good")

@@ -36,13 +36,13 @@ def compute_CPS_parameters(
 
     ## tracks
     ### Test type
-    if type(tracks) == xr.Dataset:
+    if isinstance(tracks, xr.Dataset):
         tracks = tracks.to_dataframe()
-    elif type(tracks) == pd.DataFrame:
-        pass
-    else:
+    elif not isinstance(tracks, pd.DataFrame):
         print(
-            "Type of tracks not recognized. Please provide a pandas dataframe or an xarray dataset.\nNote: If you are using huracanpy to load the tracks, the object is an xarray Dataset."
+            "Type of tracks not recognized. Please provide a pandas dataframe or an"
+            "xarray dataset.\nNote: If you are using huracanpy to load the tracks,"
+            "the object is an xarray Dataset."
         )
         return None
 
