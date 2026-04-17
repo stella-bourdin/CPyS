@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.stats import linregress
 
 
 def VT(geopt, name="snap_zg"):
@@ -14,7 +15,7 @@ def VT(geopt, name="snap_zg"):
     VTL, VTU : The Hart Phase Space parameters for upper and lower thermal wind respectively.
     """
     # from sklearn.linear_model import LinearRegression
-    from scipy.stats import linregress
+
 
     Z_max = geopt[name].max(["az", "r"])  # Maximum of Z at each level for each snapshot
     Z_min = geopt[name].min(["az", "r"])  # Minimum of ...

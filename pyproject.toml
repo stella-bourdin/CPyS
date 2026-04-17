@@ -12,6 +12,7 @@ dependencies = [
     "xarray",
     "pyproj",
     "matplotlib",
+    "scipy",
 ]
 
 [tool.setuptools]
