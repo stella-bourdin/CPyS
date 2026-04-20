@@ -13,10 +13,12 @@ demo_path = here / "../demo/"
 def tracks():
     return pd.read_csv(demo_path / "Dale.csv", index_col=False)
 
+
 @pytest.fixture()
 def geopt():
     return xr.open_dataset(demo_path / "Dale.nc")
 
+
 @pytest.fixture()
 def results():
-    return pd.read_csv("results.csv", index_col=False)
+    return pd.read_csv("results.csv")
