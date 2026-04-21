@@ -32,3 +32,11 @@ def test_right_left_vector(geopt, results):
     # 2 * 50 * 90 = 900
     assert np.isnan(right).sum() == 900
     assert np.isnan(left).sum() == 900
+
+
+def test_vt(geopt, results):
+    geopt = geopt.rename(level="plev").sortby("plev", ascending=False)
+    vtl, vtu = _hart.vt(geopt)
+
+    np.testing.assert_allclose(vtl, results.VTL)
+    np.testing.assert_allclose(vtu, results.VTU)
