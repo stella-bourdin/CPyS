@@ -82,7 +82,7 @@ def area_weights(field):
     return w
 
 
-def B(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):  # TODO: Useless?
+def b(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):  # TODO: Useless?
     """
     Computes the B parameter for a point, with the corresponding snapshot of geopt at
     600hPa and 900hPa
@@ -122,7 +122,7 @@ def B(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):  # TODO: Useless?
     )
 
 
-def B_vector(th_vec, z900, z600, lat):
+def b_vector(th_vec, z900, z600, lat):
     """
     Computes the B parameter for a vector of points, with the corresponding snapshot of
     geopt at 600hPa and 900hPa
@@ -151,7 +151,7 @@ def B_vector(th_vec, z900, z600, lat):
     )
 
 
-def VT(geopt, name="snap_zg"):
+def vt(geopt, name="snap_zg"):
     """
     Parameters
     ----------
@@ -164,9 +164,9 @@ def VT(geopt, name="snap_zg"):
     VTL, VTU : The Hart Phase Space parameters for upper and lower thermal wind respectively.
     """
     # from sklearn.linear_model import LinearRegression
-    Z_max = geopt[name].max(["az", "r"])  # Maximum of Z at each level for each snapshot
-    Z_min = geopt[name].min(["az", "r"])  # Minimum of ...
-    ΔZ = Z_max - Z_min  # Fonction of snapshot & plev
+    z_max = geopt[name].max(["az", "r"])  # Maximum of Z at each level for each snapshot
+    z_min = geopt[name].min(["az", "r"])  # Minimum of ...
+    ΔZ = z_max - z_min  # Fonction of snapshot & plev
     ΔZ_bottom = ΔZ.sel(plev=slice(950e2, 600e2))  # Lower troposphere
     ΔZ_top = ΔZ.sel(plev=slice(600e2, 250e2))  # Upper tropo
     X = np.log(ΔZ_bottom.plev).values.reshape(-1, 1).flatten()

@@ -1,9 +1,9 @@
 __all__ = [
-    "compute_CPS_parameters",
+    "compute_cps_parameters",
     "theta_multitrack",
-    "plot_CPS",
+    "plot_cps",
 ]
 
-from .CPS import compute_CPS_parameters
+from .cps import compute_cps_parameters
 from .theta import theta_multitrack
-from .plot import plot_CPS
+from .plot import plot_cps

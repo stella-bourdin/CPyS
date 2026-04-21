@@ -7,7 +7,7 @@ from cpys import _hart
 def test_b_vector(tracks, geopt, results):
     z900 = geopt.snap_zg.sel(level=90000)
     z600 = geopt.snap_zg.sel(level=60000)
-    result = _hart.B_vector(results.theta, z900, z600, tracks.lat)
+    result = _hart.b_vector(results.theta, z900, z600, tracks.lat)
 
     np.testing.assert_allclose(result, results.B)
 

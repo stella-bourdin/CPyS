@@ -3,10 +3,10 @@ import numpy as np
 import xarray as xr
 
 from .theta import theta_multitrack
-from ._hart import B_vector, VT
+from ._hart import b_vector, vt
 
 
-def compute_CPS_parameters(
+def compute_cps_parameters(
     tracks,
     geopt,
     geopt_name="snap_zg",
@@ -85,16 +85,16 @@ def compute_CPS_parameters(
 
     ## B computation
     tracks = tracks.assign(
-        B=B_vector(tracks.theta.values, z900, z600, tracks.lat.values)
+        B=b_vector(tracks.theta.values, z900, z600, tracks.lat.values)
     )
 
     # 2/ VTL & VTU computation
     if verbose:
         print("Computing VTL & VTU...")
     geopt = geopt.sortby("plev", ascending=False)
-    VTL, VTU = VT(geopt, name=geopt_name)
+    vtl, vtu = vt(geopt, name=geopt_name)
 
     # Output
-    tracks = tracks.assign(VTL=VTL, VTU=VTU)
+    tracks = tracks.assign(VTL=vtl, VTU=vtu)
 
     return tracks

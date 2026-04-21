@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 
 
-def plot_CPS(tracks, title=""):
+def plot_cps(tracks, title=""):
     fig, axs = plt.subplots(1, 2, figsize=[10, 5])
     fig.suptitle(title)
 
     # Left plot (B vs. VTL)
     ## Data
-    axs[0].plot(tracks.VTL, tracks.B, marker="o", color="k")
+    axs[0].plot(tracks.VTL, tracks.b, marker="o", color="k")
     ## x-axis
     axs[0].axvline(x=0, color="k", alpha=0.5, linestyle="--", linewidth=1)
     axs[0].set_xlabel("$-V_T^L$ / m")

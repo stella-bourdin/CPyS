@@ -17,3 +17,11 @@ dependencies = [
 
 [tool.setuptools]
 packages = ["cpys"]
+
+[tool.ruff]
+include = ["cpys/**/*.py"]
+
+[tool.ruff.lint]
+extend-select = [
+    "N", # pep8 naming conventions
+]
