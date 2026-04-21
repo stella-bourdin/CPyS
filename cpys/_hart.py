@@ -65,23 +65,6 @@ def right_left_vector(z, th):
     return R, L
 
 
-def area_weights(field):
-    """
-    Computes the weights needed for the weighted mean of polar field.
-
-    Parameters
-    ----------
-    field (xr.DataArray): The geopotential field
-
-    Returns
-    -------
-    w (xr.DataArray): The weights corresponding to the area wrt the radius.
-    """
-    δ = (field.r[1] - field.r[0]) / 2
-    w = (field.r + δ) ** 2 - (field.r - δ) ** 2
-    return w
-
-
 def b(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):  # TODO: Useless?
     """
     Computes the B parameter for a point, with the corresponding snapshot of geopt at
@@ -107,8 +90,8 @@ def b(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):  # TODO: Useless?
         z900 = geopt[names[0]]
         z600 = geopt[names[1]]
 
-    ΔZ = z600 - z900
-    ΔZ_R, ΔZ_L = right_left_vector(ΔZ, th)
+    dz = z600 - z900
+    ΔZ_R, ΔZ_L = right_left_vector(dz, th)
     if SH:
         h = -1
     else:
@@ -116,8 +99,8 @@ def b(th, geopt, SH=False, names=["snap_z900", "snap_z600"]):  # TODO: Useless?
     return (
         h
         * (
-            ΔZ_R.weighted(area_weights(ΔZ_R)).mean(["r", "az"])
-            - ΔZ_L.weighted(area_weights(ΔZ_L)).mean(["r", "az"])
+            ΔZ_R.weighted(dz.r).mean(["r", "az"])
+            - ΔZ_L.weighted(dz.r).mean(["r", "az"])
         ).values
     )
 
@@ -142,12 +125,12 @@ def b_vector(th_vec, z900, z600, lat):
     if type(th_vec) != np.ndarray:
         th_vec = th_vec.values
 
-    ΔZ = z600 - z900
-    ΔZ_R, ΔZ_L = right_left_vector(ΔZ, th_vec)
+    dz = z600 - z900
+    ΔZ_R, ΔZ_L = right_left_vector(dz, th_vec)
     h = np.where(lat < 0, -1, 1)
     return h * (
-        ΔZ_R.weighted(area_weights(ΔZ_R)).mean(["az", "r"])
-        - ΔZ_L.weighted(area_weights(ΔZ_L)).mean(["az", "r"])
+        ΔZ_R.weighted(dz.r).mean(["az", "r"])
+        - ΔZ_L.weighted(dz.r).mean(["az", "r"])
     )
 
 

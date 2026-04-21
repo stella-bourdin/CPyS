@@ -12,12 +12,6 @@ def test_b_vector(tracks, geopt, results):
     np.testing.assert_allclose(result, results.B)
 
 
-def test_area_weights(geopt):
-    result = _hart.area_weights(geopt)
-
-    np.testing.assert_allclose(result, np.arange(0.04, 4, 0.08))
-
-
 def test_right_left_vector(geopt, results):
     right, left = _hart.right_left_vector(
         geopt.snap_zg.isel(level=-1, snapshot=slice(0, 2)), results.theta[:2]
