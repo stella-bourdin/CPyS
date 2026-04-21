@@ -349,9 +349,8 @@ snaps.coords
 
 ## Computation of the CPS parameters
 
-
 ```python
-from CPyS import compute_CPS_parameters
+from cpys import compute_CPS_parameters
 ```
 
 
@@ -780,9 +779,8 @@ track_w_CPS_params[["track_id", "time", "lon", "lat", "theta", "B", "VTL", "VTU"
 ## Plot of the phase space diagram
 I have included a simple function to plot the two traditionnal phase space diagrams.
 
-
 ```python
-from CPyS import plot_CPS
+from cpys import plot_CPS
 ```
 
 

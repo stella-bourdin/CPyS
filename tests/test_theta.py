@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from CPyS import theta
+from cpys import theta
 
 
 def test_theta():

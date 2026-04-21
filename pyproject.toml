@@ -1,6 +1,6 @@
 [project]
-name = "CPyS"
-version = "0.6.0"
+name = "cpys"
+version = "1.0.0"
 authors = [
   { name="Stella Bourdin", email="stella.bourdin@lsce.ipsl.fr" },
 ]
@@ -16,4 +16,4 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = ["CPyS"]
+packages = ["cpys"]

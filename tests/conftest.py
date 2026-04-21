@@ -21,4 +21,4 @@ def geopt():
 
 @pytest.fixture()
 def results():
-    return pd.read_csv("results.csv")
+    return pd.read_csv(here / "results.csv")

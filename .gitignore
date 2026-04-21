@@ -1,2 +1,2 @@
-CPyS.egg-info
+*.egg-info
 **/.ipynb_checkpoints/*

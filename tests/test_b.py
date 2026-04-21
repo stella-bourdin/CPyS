@@ -1,26 +1,26 @@
 import numpy as np
 import pytest
 
-import CPyS.B
+import cpys.B
 
 
 def test_b_vector(tracks, geopt, results):
     z900 = geopt.snap_zg.sel(level=90000)
     z600 = geopt.snap_zg.sel(level=60000)
-    result = CPyS.B.B_vector(results.theta, z900, z600, tracks.lat)
+    result = cpys.B.B_vector(results.theta, z900, z600, tracks.lat)
 
     np.testing.assert_allclose(result, results.B)
 
 
 def test_area_weights(geopt):
-    result = CPyS.B.area_weights(geopt)
+    result = cpys.B.area_weights(geopt)
 
     np.testing.assert_allclose(result, np.arange(0.04, 4, 0.08))
 
 
 def test_right_left_vector(geopt, results):
-    right, left = CPyS.B.right_left_vector(
-        geopt.snap_zg.isel(level=0, snapshot=slice(0, 2)), results.theta[:2]
+    right, left = cpys.B.right_left_vector(
+        geopt.snap_zg.isel(level=-1, snapshot=slice(0, 2)), results.theta[:2]
     )
 
     assert right.mean() == pytest.approx(20.501, abs=0.001)

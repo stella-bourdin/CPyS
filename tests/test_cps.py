@@ -1,6 +1,6 @@
 import numpy as np
 
-from CPyS.CPS import compute_CPS_parameters
+from cpys.CPS import compute_CPS_parameters
 
 
 def test_cps_parameters(tracks, geopt, results):
