@@ -1,25 +1,25 @@
 import numpy as np
 import pytest
 
-import cpys.B
+from cpys import _hart
 
 
 def test_b_vector(tracks, geopt, results):
     z900 = geopt.snap_zg.sel(level=90000)
     z600 = geopt.snap_zg.sel(level=60000)
-    result = cpys.B.B_vector(results.theta, z900, z600, tracks.lat)
+    result = _hart.B_vector(results.theta, z900, z600, tracks.lat)
 
     np.testing.assert_allclose(result, results.B)
 
 
 def test_area_weights(geopt):
-    result = cpys.B.area_weights(geopt)
+    result = _hart.area_weights(geopt)
 
     np.testing.assert_allclose(result, np.arange(0.04, 4, 0.08))
 
 
 def test_right_left_vector(geopt, results):
-    right, left = cpys.B.right_left_vector(
+    right, left = _hart.right_left_vector(
         geopt.snap_zg.isel(level=-1, snapshot=slice(0, 2)), results.theta[:2]
     )
 
