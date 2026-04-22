@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import huracanpy
 import pandas as pd
 import pytest
 import xarray as xr
@@ -11,7 +12,7 @@ demo_path = here / "../demo/"
 
 @pytest.fixture()
 def tracks():
-    return pd.read_csv(demo_path / "Dale.csv", index_col=False)
+    return huracanpy.load(str(demo_path / "Dale.csv"))
 
 
 @pytest.fixture()

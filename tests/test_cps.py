@@ -7,4 +7,4 @@ def test_cps_parameters(tracks, geopt, results):
     df = compute_cps_parameters(tracks, geopt)
 
     for var in ["B", "VTL", "VTU"]:
-        np.testing.assert_allclose(df[var], results[var])
+        np.testing.assert_allclose(df[var].values, results[var].values)

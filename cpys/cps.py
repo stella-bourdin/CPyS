@@ -1,8 +1,6 @@
-import pandas as pd
 import numpy as np
-import xarray as xr
 
-from .theta import theta_multitrack
+from .theta import theta
 from ._hart import b_vector, vt
 
 
@@ -18,8 +16,8 @@ def compute_cps_parameters(
 
     Parameters
     ----------
-    tracks (pd.DataFrame): The set of TC points
-    geopt (xr.DataSet): The geopotential snapshots associated with the tracks
+    tracks (xarray.Dataset): The set of TC points
+    geopt (xarray.DataSet): The geopotential snapshots associated with the tracks
         level coordinate must be in Pa.
     geopt_name (str): Provide the name of the 3D (plev, r, az) geopt snapshots variables as a string.
     plev_name (str): name of the vertical coordinate in the geopt file.
@@ -33,31 +31,6 @@ def compute_cps_parameters(
     ## geopt snapshots
     geopt = geopt.rename({plev_name: "plev"})  # Change vertical coordinate name
     geopt = geopt.where(np.abs(geopt[geopt_name]) < 1e10)
-
-    ## tracks
-    ### Test type
-    if isinstance(tracks, xr.Dataset):
-        tracks = tracks.to_dataframe()
-    elif not isinstance(tracks, pd.DataFrame):
-        print(
-            "Type of tracks not recognized. Please provide a pandas dataframe or an"
-            "xarray dataset.\nNote: If you are using huracanpy to load the tracks,"
-            "the object is an xarray Dataset."
-        )
-        return None
-
-    ### Time
-    if "time" not in tracks.columns:  ## Todo: Replace with huracanpy's get time?
-        tracks["time"] = pd.to_datetime(
-            tracks.year.astype(str)
-            + "-"
-            + tracks.month.astype(str)
-            + "-"
-            + tracks.day.astype(str)
-            + "-"
-            + tracks.hour.astype(str)
-            + ":00:00"
-        )
 
     # 1/ B computation
     if verbose:
@@ -80,12 +53,14 @@ def compute_cps_parameters(
         )
 
     ## theta computation
-    if "theta" not in tracks.columns:
-        tracks = tracks.assign(theta=theta_multitrack(tracks))
+    if "theta" not in tracks:
+        angle = theta(tracks)
+    else:
+        angle = tracks.theta
 
     ## B computation
     tracks = tracks.assign(
-        B=b_vector(tracks.theta.values, z900, z600, tracks.lat.values)
+        B=b_vector(angle, z900, z600, tracks.lat.values)
     )
 
     # 2/ VTL & VTU computation

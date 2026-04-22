@@ -10,9 +10,9 @@ dependencies = [
     "numpy",
     "pandas",
     "xarray",
-    "pyproj",
     "matplotlib",
     "scipy",
+    "huracanpy",
 ]
 
 [tool.setuptools]

@@ -1,30 +1,37 @@
 import numpy as np
-import pandas as pd
-import pytest
+import xarray as xr
 
 from cpys import theta
 
 
 def test_theta():
-    x0, x1, y0, y1 = 0, 1, 0, 0  # Eastward
-    assert theta.theta(x0, x1, y0, y1) == 0
-    x0, x1, y0, y1 = 0, 0, 0, 1  # Northward
-    assert theta.theta(x0, x1, y0, y1) == 90
-    x0, x1, y0, y1 = 0, -1, 0, 0  # Westward
-    assert theta.theta(x0, x1, y0, y1) == 180
-    x0, x1, y0, y1 = 0, 0, 0, -1  # Southward
-    assert theta.theta(x0, x1, y0, y1) == 270
+    for (x0, x1, y0, y1), expected in [
+        ((0, 1, 0, 0), 0),  # Eastward
+        ((0, 0, 0, 1), 90), # Northward
+        ((0, -1, 0, 0), 180),  # Westward
+        ((0, 0, 0, -1), 270)  # Southward
+    ]:
+        tracks = xr.Dataset(data_vars=dict(
+            lon=("record", [x0, x1]),
+            lat=("record", [y0, y1]),
+            track_id=("record", [0, 0]),
+        ))
+        assert theta.theta(tracks)[0] == expected
 
 
 def test_theta_track():
-    lon = [0, 1, 1, 0, 0]
-    lat = [0, 0, 1, 1, 0]
-    t = theta.theta_track(lon, lat)
+    lon = np.array([0, 1, 1, 0, 0])
+    lat = np.array([0, 0, 1, 1, 0])
+    tracks = xr.Dataset(data_vars=dict(
+        lon=("record", lon),
+        lat=("record", lat),
+        track_id=("record", [0]*5),
+    ))
+    t = theta.theta(tracks)
     assert len(t) == len(lon)
-    assert t == pytest.approx([0, 90, 180, 270, 270], 0.01)
+    np.testing.assert_allclose(t, [0, 90, 180, 270, 270], atol=0.01)
 
 
 def test_theta_multitrack(tracks, results):
-    result = theta.theta_multitrack(tracks)
-    assert type(result) is np.ndarray
+    result = theta.theta(tracks)
     np.testing.assert_allclose(result, results.theta)
