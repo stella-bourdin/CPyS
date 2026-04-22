@@ -19,7 +19,9 @@ def theta(tracks):
     thetas (list): The list of angle for each point in the dataset
     """
 
-    az = huracanpy.calc.azimuth(tracks.lon, tracks.lat, tracks.track_id, centering="forward")
+    az = huracanpy.calc.azimuth(
+        tracks.lon, tracks.lat, tracks.track_id, centering="forward"
+    )
 
     # Replace points at end of the track with previous azimuth
     idx = np.where(np.isnan(az))[0]

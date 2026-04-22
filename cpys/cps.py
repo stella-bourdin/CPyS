@@ -1,7 +1,7 @@
 import numpy as np
 
 from .theta import theta
-from ._hart import b_vector, vt
+from ._hart import b, vt
 
 
 def compute_cps_parameters(
@@ -52,13 +52,11 @@ def compute_cps_parameters(
 
     ## theta computation
     if "theta" not in tracks:
-        angle = theta(tracks)
-    else:
-        angle = tracks.theta
+        tracks = tracks.assign(theta=theta(tracks))
 
     ## B computation
     tracks = tracks.assign(
-        B=b_vector(angle, z900, z600, tracks.lat.values)
+        B=("record", b(tracks["theta"], z900, z600, tracks.lat.values))
     )
 
     # 2/ VTL & VTU computation
@@ -68,6 +66,6 @@ def compute_cps_parameters(
     vtl, vtu = vt(geopt)
 
     # Output
-    tracks = tracks.assign(VTL=vtl, VTU=vtu)
+    tracks = tracks.assign(VTL=("record", vtl), VTU=("record", vtu))
 
     return tracks
