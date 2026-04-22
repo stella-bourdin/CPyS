@@ -1,7 +1,7 @@
 import numpy as np
 import xarray as xr
 
-from cpys import theta
+import cpys
 
 
 def test_theta():
@@ -16,7 +16,7 @@ def test_theta():
             lat=("record", [y0, y1]),
             track_id=("record", [0, 0]),
         ))
-        assert theta.theta(tracks)[0] == expected
+        assert cpys.theta(tracks)[0] == expected
 
 
 def test_theta_track():
@@ -27,11 +27,11 @@ def test_theta_track():
         lat=("record", lat),
         track_id=("record", [0]*5),
     ))
-    t = theta.theta(tracks)
+    t = cpys.theta(tracks)
     assert len(t) == len(lon)
     np.testing.assert_allclose(t, [0, 90, 180, 270, 270], atol=0.01)
 
 
 def test_theta_multitrack(tracks, results):
-    result = theta.theta(tracks)
+    result = cpys.theta(tracks)
     np.testing.assert_allclose(result, results.theta)

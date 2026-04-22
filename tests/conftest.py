@@ -17,7 +17,7 @@ def tracks():
 
 @pytest.fixture()
 def geopt():
-    return xr.open_dataset(demo_path / "Dale.nc")
+    return xr.open_dataset(demo_path / "Dale.nc").snap_zg
 
 
 @pytest.fixture()

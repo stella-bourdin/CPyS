@@ -5,8 +5,8 @@ from cpys import _hart
 
 
 def test_b_vector(tracks, geopt, results):
-    z900 = geopt.snap_zg.sel(level=90000)
-    z600 = geopt.snap_zg.sel(level=60000)
+    z900 = geopt.sel(level=90000)
+    z600 = geopt.sel(level=60000)
     result = _hart.b_vector(results.theta, z900, z600, tracks.lat)
 
     np.testing.assert_allclose(result, results.B)
@@ -14,7 +14,7 @@ def test_b_vector(tracks, geopt, results):
 
 def test_right_left_vector(geopt, results):
     right, left = _hart.right_left_vector(
-        geopt.snap_zg.isel(level=-1, snapshot=slice(0, 2)), results.theta[:2]
+        geopt.isel(level=-1, snapshot=slice(0, 2)), results.theta[:2]
     )
 
     assert right.mean() == pytest.approx(20.501, abs=0.001)

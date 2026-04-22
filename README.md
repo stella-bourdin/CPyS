@@ -314,14 +314,14 @@ track[["track_id", "time", "lon", "lat"]] # Extract of the track file
 ```python
 # Load the snapshots file with xarray
 import xarray as xr
-snaps = xr.open_dataset("Dale.nc")
+snaps = xr.open_dataset("Dale.nc").snap_zg
 #snaps["level"] = [...] # !! Change the vertical variable here if necessary. It must be in Pa.
 ```
 
 
 ```python
 # Snapshots dimensions
-snaps.snap_zg.dims
+snaps.dims
 ```
 
 

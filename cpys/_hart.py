@@ -134,7 +134,7 @@ def b_vector(th_vec, z900, z600, lat):
     )
 
 
-def vt(geopt, name="snap_zg"):
+def vt(geopt):
     """
     Parameters
     ----------
@@ -147,8 +147,8 @@ def vt(geopt, name="snap_zg"):
     VTL, VTU : The Hart Phase Space parameters for upper and lower thermal wind respectively.
     """
     # from sklearn.linear_model import LinearRegression
-    z_max = geopt[name].max(["az", "r"])  # Maximum of Z at each level for each snapshot
-    z_min = geopt[name].min(["az", "r"])  # Minimum of ...
+    z_max = geopt.max(["az", "r"])  # Maximum of Z at each level for each snapshot
+    z_min = geopt.min(["az", "r"])  # Minimum of ...
     ΔZ = z_max - z_min  # Fonction of snapshot & plev
     ΔZ_bottom = ΔZ.sel(plev=slice(950e2, 600e2))  # Lower troposphere
     ΔZ_top = ΔZ.sel(plev=slice(600e2, 250e2))  # Upper tropo
