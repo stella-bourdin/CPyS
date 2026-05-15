@@ -7,7 +7,7 @@ def plot_cps(tracks, title=""):
 
     # Left plot (B vs. VTL)
     ## Data
-    axs[0].plot(tracks.VTL, tracks.b, marker="o", color="k")
+    axs[0].plot(tracks.VTL, tracks.B, marker="o", color="k")
     ## x-axis
     axs[0].axvline(x=0, color="k", alpha=0.5, linestyle="--", linewidth=1)
     axs[0].set_xlabel("$-V_T^L$ / m")
