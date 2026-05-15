@@ -81,7 +81,5 @@ def compute_cps_parameters(
 
     # Output
     return tracks.assign(
-        B=("record", asymmetry),
-        VTL=("record", vtl),
-        VTU=("record", vtu)
+        B=("record", asymmetry), VTL=("record", vtl), VTU=("record", vtu)
     )
