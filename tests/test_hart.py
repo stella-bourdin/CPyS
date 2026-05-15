@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 
+import cpys
 from cpys import _hart
 
 
@@ -8,7 +9,7 @@ def test_b_non_vector(tracks, geopt, results):
     geopt = geopt.isel(snapshot=0)
     z900 = geopt.sel(level=90000)
     z600 = geopt.sel(level=60000)
-    result = _hart.b(results.theta[0], z900, z600, tracks.lat)
+    result = cpys.b(results.theta[0], z900, z600, tracks.lat)
 
     np.testing.assert_allclose(result, results.B[0])
 
@@ -16,7 +17,7 @@ def test_b_non_vector(tracks, geopt, results):
 def test_b_vector(tracks, geopt, results):
     z900 = geopt.sel(level=90000)
     z600 = geopt.sel(level=60000)
-    result = _hart.b(results.theta, z900, z600, tracks.lat)
+    result = cpys.b(results.theta, z900, z600, tracks.lat)
 
     np.testing.assert_allclose(result, results.B)
 
@@ -37,8 +38,8 @@ def test_right_left_vector(geopt, results):
 
 def test_vt(geopt, results):
     geopt = geopt.rename(level="plev").sortby("plev", ascending=False)
-    vtl = _hart.vt(geopt.sel(plev=slice(950e2, 600e2)))
-    vtu = _hart.vt(geopt.sel(plev=slice(600e2, 250e2)))
+    vtl = cpys.vt(geopt.sel(plev=slice(950e2, 600e2)))
+    vtu = cpys.vt(geopt.sel(plev=slice(600e2, 250e2)))
 
     np.testing.assert_allclose(vtl, results.VTL)
     np.testing.assert_allclose(vtu, results.VTU)

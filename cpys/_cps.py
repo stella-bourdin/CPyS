@@ -1,6 +1,6 @@
 import numpy as np
 
-from .theta import theta
+from ._theta import theta
 from ._hart import b, vt
 
 
