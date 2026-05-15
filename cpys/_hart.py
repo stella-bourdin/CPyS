@@ -8,8 +8,10 @@ def right_left(z, theta):
 
     Parameters
     ----------
-    z (xr.DataArray): The geopotential field
-    th: The direction (in degrees)
+    z: xarray.DataArray
+        The geopotential field
+    theta :
+        The direction (in degrees)
 
     Returns
     -------
@@ -33,10 +35,14 @@ def b(th_vec, z900, z600, lat):
 
     Parameters
     ----------
-    th_vec : The theta parameter for each point
-    z900 : The z900 field for each point
-    z600 : The z600 field for each point
-    lat : The latitude of each point
+    th_vec :
+        The theta parameter for each point
+    z900 :
+        The z900 field for each point
+    z600 :
+        The z600 field for each point
+    lat :
+        The latitude of each point
 
     Returns
     -------
@@ -54,31 +60,25 @@ def b(th_vec, z900, z600, lat):
     )
 
 
-def vt(geopt):
+def vt(geopt, p_bottom=None, p_top=None):
     """
     Parameters
     ----------
-    geopt (xr.DataArray) : The Geopotential snapshots DataArray.
-        plev must be decreasing
-    name (str) : Name of the geopotential snapshots variable.
+    geopt : xarray.DataArray
+        The Geopotential snapshots DataArray. plev must be decreasing
 
     Returns
     -------
-    VTL, VTU : The Hart Phase Space parameters for upper and lower thermal wind respectively.
+    numpy.ndarray
+        The Hart Phase Space parameter for thermal wind
     """
-    # from sklearn.linear_model import LinearRegression
-    z_max = geopt.max(["az", "r"])  # Maximum of Z at each level for each snapshot
-    z_min = geopt.min(["az", "r"])  # Minimum of ...
-    ΔZ = z_max - z_min  # Fonction of snapshot & plev
-    ΔZ_bottom = ΔZ.sel(plev=slice(950e2, 600e2))  # Lower troposphere
-    ΔZ_top = ΔZ.sel(plev=slice(600e2, 250e2))  # Upper tropo
-    X = np.log(ΔZ_bottom.plev).values.reshape(-1, 1).flatten()
-    # VTL = [LinearRegression().fit(X, y).coef_[0] if not np.isnan(y).any() else np.nan for y in ΔZ_bottom.values]
-    VTL = [
-        linregress(X, y).slope if not np.isnan(y).any() else np.nan
-        for y in ΔZ_bottom.values
-    ]
-    X = np.log(ΔZ_top.plev).values.reshape(-1, 1).flatten()
-    # VTU = [LinearRegression().fit(X, y).coef_[0] for y in ΔZ_top.values]
-    VTU = [linregress(X, y).slope for y in ΔZ_top.values]
-    return VTL, VTU
+    # Maximum of Z at each level for each snapshot
+    z_max = geopt.max(["az", "r"])
+    # Minimum of ...
+    z_min = geopt.min(["az", "r"])
+    # Function of snapshot & plev
+    dz = z_max - z_min
+
+    x = np.log(dz.plev).values.reshape(-1, 1).flatten()
+
+    return linregress(x, dz, axis=1).slope
