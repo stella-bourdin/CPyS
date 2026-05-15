@@ -9,14 +9,17 @@ def theta(tracks):
 
     Parameters
     ----------
-    tracks (pd.DataFrame): The set of TC points including columns:
+    tracks : xarray.Dataset
+        The set of TC points including columns:
+
         * time
         * lon
         * lat
 
     Returns
     -------
-    thetas (list): The list of angle for each point in the dataset
+    xarray.DataArray
+        The angle of propagation for each track point in the dataset
     """
 
     az = huracanpy.calc.azimuth(

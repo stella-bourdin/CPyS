@@ -22,16 +22,20 @@ def compute_cps_parameters(
 
     Parameters
     ----------
-    tracks (xarray.Dataset): The set of TC points
-    geopt (xarray.DataArray): The geopotential snapshots associated with the tracks
-        level coordinate must be in Pa.
-    plev_name (str): name of the vertical coordinate in the geopt file.
+    tracks : xarray.Dataset
+        The set of TC points
+    geopt : xarray.DataArray
+        The geopotential snapshots associated with the tracks level coordinate must be
+        in Pa.
+    plev_name : str
+        The name of the vertical coordinate in the geopt file.
 
     Returns
     -------
-    tracks (pd.DataFrame): The set of TC points with four new columns corresponding to the parameters
+    xarray.Dataset
+        The set of TC points with four new variable corresponding to the CPS
+        parameters (B, VTL, VTU) and the angle (theta)
     """
-
     # Curate input
     # Pressure levels
     if p_bottom_vtl is None:

@@ -37,16 +37,17 @@ def b(th_vec, z900, z600, lat):
     ----------
     th_vec :
         The theta parameter for each point
-    z900 :
+    z900 : xarray.DataArray
         The z900 field for each point
-    z600 :
+    z600 : xarray.DataArray
         The z600 field for each point
     lat :
         The latitude of each point
 
     Returns
     -------
-    B, the Hart phase space parameter for symetry.
+    numpy.ndarray
+        The Hart phase space parameter for symetry.
     """
     dz = z600 - z900
     dz_r, dz_l = right_left(dz, th_vec)

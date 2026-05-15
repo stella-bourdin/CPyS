@@ -2,6 +2,15 @@ import matplotlib.pyplot as plt
 
 
 def plot_cps(tracks, title=""):
+    """Plot a pair of CPS diagrams for the given track
+
+    Parameters
+    ----------
+    tracks : xarray.Dataset
+        The tracks containing the variables for the CPS parameters (B, VTL, VTU)
+    title : str
+
+    """
     fig, axs = plt.subplots(1, 2, figsize=[10, 5])
     fig.suptitle(title)
 
