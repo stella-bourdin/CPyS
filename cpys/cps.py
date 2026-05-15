@@ -71,10 +71,9 @@ def compute_cps_parameters(
     # 2/ VTL & VTU computation
     if verbose:
         print("Computing VTL & VTU...")
-    geopt = geopt.sortby("plev", ascending=False)
-    vtl = vt(geopt.sel(plev=slice(p_bottom_vtl, p_top_vtl)))
-    vtu = vt(geopt.sel(plev=slice(p_bottom_vtu, p_top_vtu)))
-    #vtl, vtu = vt(geopt)
+
+    vtl = vt(geopt.sel(plev=slice(p_top_vtl, p_bottom_vtl)))
+    vtu = vt(geopt.sel(plev=slice(p_top_vtu, p_bottom_vtu)))
 
     # Output
     return tracks.assign(
