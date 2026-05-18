@@ -26,5 +26,5 @@ extend-select = [
     "N", # pep8 naming conventions
 ]
 
-[pytest]
+[tool.pytest]
 testpaths = ["tests"]
