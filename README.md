@@ -4,9 +4,9 @@ Author: Stella Bourdin, stella.bourdin@physics.ox.ac.uk . Please reach out for a
 ## Installation
 
 
-```python
+```bash
 # Download the package very simply with pip
-pip install CPyS
+pip install cpys
 ```
 
 ## Preliminaries
@@ -14,7 +14,7 @@ pip install CPyS
 2. You need a NetCDF file with the geopotential at several levels from 900 to 300hPa (at least five are recommended) covering the region where your tracks are (`geopt.nc` hereafter, but you can name it as you wish).
 3. Use TempestExtremes' NodeFileCompose to obtain snapshots of the geopotential field along the track(s). Use a code similar to that below, adapted to your data:
 
-```
+```bash
 NodeFileCompose \
     --in_nodefile "tracks.csv" \
     --in_nodefile_type SN \
@@ -355,8 +355,8 @@ from cpys import compute_cps_parameters
 
 
 ```python
-track_w_CPS_params = compute_CPS_parameters(track, snaps)
-track_w_CPS_params[["track_id", "time", "lon", "lat", "theta", "B", "VTL", "VTU"]] # Results!
+track_w_cps_params = compute_cps_parameters(track, snaps)
+track_w_cps_params[["track_id", "time", "lon", "lat", "theta", "B", "VTL", "VTU"]] # Results!
 ```
 
     Computing B...
@@ -785,10 +785,9 @@ from cpys import plot_cps
 
 
 ```python
-plot_CPS(track_w_CPS_params, title = "Dale")
+plot_cps(track_w_cps_params, title = "Dale")
 ```
 
 
     
 ![png](demo/output_10_0.png)
-    
