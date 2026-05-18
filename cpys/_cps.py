@@ -1,7 +1,12 @@
+import logging
+
 import numpy as np
 
 from ._theta import theta
 from ._hart import b, vt
+
+
+logging.basicConfig()
 
 
 def compute_cps_parameters(
@@ -36,6 +41,12 @@ def compute_cps_parameters(
         The set of TC points with four new variable corresponding to the CPS
         parameters (B, VTL, VTU) and the angle (theta)
     """
+    logger = logging.getLogger("cpys")
+    if verbose:
+        logger.setLevel(20)
+    else:
+        logger.setLevel(30)
+
     # Curate input
     # Pressure levels
     if p_bottom_vtl is None:
@@ -52,18 +63,18 @@ def compute_cps_parameters(
     geopt = geopt.where(np.abs(geopt) < 1e10)
 
     # 1/ B computation
-    if verbose:
-        print("Computing B...")
+    logger.info("Computing B...")
+
     ## Select 900 & 600 hPa levels
     z900, z600 = (
         geopt.sel(plev=p_bottom, method="nearest"),
         geopt.sel(plev=p_mid, method="nearest"),
     )
-    if verbose:
-        print(
-            f"Level {z900.plev.values} is taken for 900hPa\n"
-            f"Level {z600.plev.values} is taken for 600hPa\n"
-        )
+
+    logger.info(
+        f"Level {z900.plev.values} is taken for 900hPa\n"
+        f"Level {z600.plev.values} is taken for 600hPa\n"
+    )
 
     ## theta computation
     if "theta" not in tracks:
@@ -73,8 +84,7 @@ def compute_cps_parameters(
     asymmetry = b(tracks["theta"], z900, z600, tracks.lat.values)
 
     # 2/ VTL & VTU computation
-    if verbose:
-        print("Computing VTL & VTU...")
+    logger.info("Computing VTL & VTU...")
 
     vtl = vt(geopt.sel(plev=slice(p_top_vtl, p_bottom_vtl)))
     vtu = vt(geopt.sel(plev=slice(p_top_vtu, p_bottom_vtu)))
