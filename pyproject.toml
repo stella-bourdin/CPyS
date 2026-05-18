@@ -25,3 +25,6 @@ include = ["cpys/**/*.py"]
 extend-select = [
     "N", # pep8 naming conventions
 ]
+
+[pytest]
+testpaths = ["tests"]
