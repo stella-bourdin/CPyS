@@ -314,14 +314,14 @@ track[["track_id", "time", "lon", "lat"]] # Extract of the track file
 ```python
 # Load the snapshots file with xarray
 import xarray as xr
-snaps = xr.open_dataset("Dale.nc")
+snaps = xr.open_dataset("Dale.nc").snap_zg
 #snaps["level"] = [...] # !! Change the vertical variable here if necessary. It must be in Pa.
 ```
 
 
 ```python
 # Snapshots dimensions
-snaps.snap_zg.dims
+snaps.dims
 ```
 
 
@@ -349,9 +349,8 @@ snaps.coords
 
 ## Computation of the CPS parameters
 
-
 ```python
-from CPyS import compute_CPS_parameters
+from cpys import compute_cps_parameters
 ```
 
 
@@ -780,9 +779,8 @@ track_w_CPS_params[["track_id", "time", "lon", "lat", "theta", "B", "VTL", "VTU"
 ## Plot of the phase space diagram
 I have included a simple function to plot the two traditionnal phase space diagrams.
 
-
 ```python
-from CPyS import plot_CPS
+from cpys import plot_cps
 ```
 
 
