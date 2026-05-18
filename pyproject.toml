@@ -15,6 +15,16 @@ dependencies = [
     "huracanpy",
 ]
 
+[project.optional-dependencies]
+docs = [
+    "sphinx",
+    "pydata-sphinx-theme",
+    "nbsphinx",
+    "IPython",
+    "ipykernel",
+    "myst-parser",
+]
+
 [tool.setuptools]
 packages = ["cpys"]
 
