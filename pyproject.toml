@@ -16,6 +16,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-cov",
+]
+
 docs = [
     "sphinx",
     "pydata-sphinx-theme",
