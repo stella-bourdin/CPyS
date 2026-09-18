@@ -40,6 +40,9 @@ include = ["cpys/**/*.py"]
 extend-select = [
     "N", # pep8 naming conventions
 ]
+ignore = [
+    "I001", "C408", "RUF022"
+]
 
 [tool.pytest]
 testpaths = ["tests"]

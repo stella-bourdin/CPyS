@@ -8,5 +8,6 @@ caption: Contents:
 
 user_guide/index
 api/index
+examples/index
 ```
 
