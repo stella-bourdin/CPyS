@@ -2,8 +2,9 @@ import logging
 
 import numpy as np
 
+from ._asymmetry import b, b_max, b_max_croad
 from ._theta import theta
-from ._hart import b, vt
+from ._hart import vt
 
 
 logging.basicConfig()
@@ -81,7 +82,7 @@ def compute_cps_parameters(
         tracks = tracks.assign(theta=theta(tracks))
 
     ## B computation
-    asymmetry = b(tracks["theta"], z900, z600, tracks.lat.values)
+    asymmetry = b(z600 - z900, tracks.lat, tracks.theta)
 
     # 2/ VTL & VTU computation
     logger.info("Computing VTL & VTU...")
@@ -91,5 +92,5 @@ def compute_cps_parameters(
 
     # Output
     return tracks.assign(
-        B=("record", asymmetry), VTL=("record", vtl), VTU=("record", vtu)
+        B=("record", asymmetry.values), VTL=("record", vtl), VTU=("record", vtu)
     )
