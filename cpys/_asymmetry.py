@@ -35,31 +35,51 @@ def right_left(z, angle):
 
 
 def b(variable, lat=None, angle=None, *, method="Hart"):
-    """
-    Computes the B parameter for a vector of points, with the corresponding snapshot of
-    geopt at 600hPa and 900hPa
+    r"""
+    Computes the asymmetry (B) parameter for the given variable
+
+    For example, to calculate the Hart B parameter pass the thickness of the 900-600hPa
+    layer as the variable, and include the latitude and angle
 
     Parameters
     ----------
     variable : xarray.DataArray
-    lat :
-        The latitude of each point
-    angle :
+        The variable to calculate the asymmetry over with dimensions
+        (time (optional), azimuth (az), radius (r))
+    lat : array_like | float
+        The latitude at each time
+    angle : array_like | float
+        The propagation direction at each time
     method : str, default="Hart"
+        Which version of the B parameter to calculate
+
+        * :code:`"Hart"` (default): Calculate the Hart B parameter. The asymmetry in the
+          variable relative to the propagation direction and corrected for hemisphere
+          (using latitude). Typically the variable should be the thickness of the
+          900-600hPa layer
+        * :code:`"max"`: The maximum asymmetry across all angles. Latitude and angle are
+          not needed for this version
+        * :code:`"Croad"`: Calculate the Croad B parameter. The maximum asymmetry across
+          all angles scaled by $\frac{1}{f_0 L N}\frac{g}{\theta_0}$. Typically the
+          variable should be the depth average potential temperature from 925-700hPa.
+          Latitude is needed, but not angle for this version.
 
 
     Returns
     -------
-    xarray.DataArray
-        The Hart phase space parameter for symmetry.
+    numpy.ndarray
+        The phase space parameter for asymmetry
     """
     if method.lower() == "hart":
         thickness_r, thickness_l = right_left(variable, angle)
         h = np.where(lat < 0, -1, 1)
-        return h * (
-            thickness_r.weighted(thickness_r.r).mean(["az", "r"])
-            - thickness_l.weighted(thickness_l.r).mean(["az", "r"])
-        ).rename("B")
+        return (
+            h
+            * (
+                thickness_r.weighted(thickness_r.r).mean(["az", "r"])
+                - thickness_l.weighted(thickness_l.r).mean(["az", "r"])
+            ).values
+        )
     elif method.lower() == "max":
         return b_max(variable)
     elif method.lower() == "croad":
@@ -89,11 +109,10 @@ def b_max(variable):
     Parameters
     ----------
     variable : xarray.DataArray
-        The latitude of each point
 
     Returns
     -------
-    xarray.DataArray
+    numpy.ndarray
         The phase space parameter for asymmetry.
     """
     diffs = []
@@ -106,4 +125,4 @@ def b_max(variable):
                 - variable.isel(az=~idx).weighted(variable.r).mean(["az", "r"])
             ).expand_dims(dim=dict(az=[variable.az.values[n]]), axis=1)
         )
-    return xr.concat(diffs, dim="az").max(dim="az")
+    return xr.concat(diffs, dim="az").max(dim="az").values

@@ -8,6 +8,7 @@ Reference Guide
     compute_cps_parameters
     b
     vt
+    rot
     theta
     plot_cps
 

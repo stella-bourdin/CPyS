@@ -2,7 +2,7 @@ import logging
 
 import numpy as np
 
-from ._asymmetry import b, b_max, b_max_croad
+from ._asymmetry import b
 from ._theta import theta
 from ._hart import vt
 
@@ -13,6 +13,9 @@ logging.basicConfig()
 def compute_cps_parameters(
     tracks,
     geopt,
+    *,
+    potential_temperature=None,
+    vorticity=None,
     plev_name="level",
     verbose=True,
     p_bottom=900e2,
@@ -22,6 +25,7 @@ def compute_cps_parameters(
     p_top_vtl=None,
     p_bottom_vtu=None,
     p_top_vtu=None,
+    method="Hart",
 ):
     """
     Computes the three (+ theta) Hart parameters for all the points in tracks.
@@ -73,8 +77,8 @@ def compute_cps_parameters(
     )
 
     logger.info(
-        f"Level {z900.plev.values} is taken for 900hPa\n"
-        f"Level {z600.plev.values} is taken for 600hPa\n"
+        f"Level {z900.plev.values} is taken for {p_bottom / 100}hPa\n"
+        f"Level {z600.plev.values} is taken for {p_mid / 100}hPa\n"
     )
 
     ## theta computation
@@ -92,5 +96,5 @@ def compute_cps_parameters(
 
     # Output
     return tracks.assign(
-        B=("record", asymmetry.values), VTL=("record", vtl), VTU=("record", vtu)
+        B=("record", asymmetry), VTL=("record", vtl), VTU=("record", vtu)
     )

@@ -10,7 +10,7 @@ import xarray as xr
 
 here = Path(__file__).parent
 demo_path = here / "../demo/"
-cases_path = here / "../cases/"
+cases_path = here / "../docs/examples/"
 
 
 snaps_levels = (

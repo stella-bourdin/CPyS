@@ -7,13 +7,11 @@ from ._asymmetry import metres_per_degree, N
 def rot(vorticity, z, p_bottom=70000, p_top=40000, method="regress"):
     """Thermal Rossby Number following `Croad et al. (2023) <https://doi.org/10.1029/2023GL105993>`_
 
-    .. math::
-
-        \\mathrm{Ro}_\\mathrm{T} = - \\frac{L}{N} \\frac{\\partial \\xi}{\\partial z}
+    $$\\mathrm{Ro}_\\mathrm{T} = - \\frac{L}{N} \\frac{\\partial \\xi}{\\partial z}$$
 
     L = Horizontal length scale. This is fixed at 500km in Croad et al. (2023), but here
-        it is determined by the radius (r) coordinate on the inputs. To apply the
-        calculation at different radii, simply subset the inputs first.
+    it is determined by the radius (r) coordinate on the inputs. To apply the
+    calculation at different radii, simply subset the inputs first.
 
     N = Brunt Vaisala frequency (0.01 s$^{-1}$)
 
@@ -24,9 +22,10 @@ def rot(vorticity, z, p_bottom=70000, p_top=40000, method="regress"):
     Parameters
     ----------
     vorticity : xarray.DataArray
-        Vorticity as
+        Vorticity with dimensions
+        (time (optional), pressure (plev), azimuth (az), radius (r))
     z : xarray.DataArray
-        Geopotential height
+        Geopotential height with the same dimensions as vorticity
     p_bottom : int | None, optional
         Lowest pressure level to calculate vertical gradient (in Pa), by default 70000
         If p_bottom=None, p_bottom will be taken as the lowest point in vorticity/z
